@@ -1,20 +1,13 @@
-// const getYieldForPlant = (plant) => plant.yield * 1; // works
+const getYieldForPlant = plant => plant.yield * 1;
 
-const getYieldForPlant = (plant) => {
-    const yieldForPlant = plant.yield * 1; // Cannot read property 'yield' of undefined, but works with above??
-    return yieldForPlant;
+const getYieldForCrop = input => input.crop.yield * input.numCrops;
+const getTotalYield = ({ crops }) => { // ({}) shorthand to create objects
+    const getYieldOfEachCrop = crops.map(crop => getYieldForCrop(crop));
+    return getYieldOfEachCrop.reduce((accumulator, currentValue) => accumulator + currentValue);
 }
-getYieldForPlant();
-
-const getYieldForCrop = (crop) => {
-    const output = crop.yield * crop.input.numCrops;
-    console.log(crop.yield); // Cannot read property 'yield' of undefined
-    console.log('test');
-    return output;
-}
-getYieldForCrop();
 
 module.exports = {
     getYieldForPlant,
-    getYieldForCrop
+    getYieldForCrop,
+    getTotalYield
 };
