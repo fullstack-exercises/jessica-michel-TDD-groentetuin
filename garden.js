@@ -6,8 +6,12 @@ const getTotalYield = ({ crops }) => { // ({}) shorthand to create objects
     return getYieldOfEachCrop.reduce((accumulator, currentValue) => accumulator + currentValue);
 }
 
+const getCostsForCrop = input => input.crop.cost * input.numCrops;
+
+
 module.exports = {
     getYieldForPlant,
     getYieldForCrop,
-    getTotalYield
+    getTotalYield,
+    getCostsForCrop
 };
