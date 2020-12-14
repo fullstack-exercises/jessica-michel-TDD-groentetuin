@@ -1,4 +1,10 @@
-const { getYieldForPlant, getYieldForCrop, getTotalYield, getCostsForCrop } = require("./garden");
+const {
+    getYieldForPlant,
+    getYieldForCrop,
+    getTotalYield,
+    getCostsForCrop,
+    getRevenueForCrop
+} = require("./garden");
 
 // Make available test pass 
 describe("getYieldForPlant", () => {
@@ -65,5 +71,31 @@ describe("getCostsForCrop", () => {
             numCrops: 10,
         };
         expect(getCostsForCrop(input)).toBe(10);
+    });
+    test("Calculate costs for a 0 crops", () => {
+        const corn = {
+            name: "corn",
+            cost: 1,
+        };
+        const input = {
+            crop: corn,
+            numCrops: 0,
+        };
+        expect(getCostsForCrop(input)).toBe(0);
+    });
+});
+
+// 2. Calulate revenue for crop
+describe("getRevenueForCrop", () => {
+    test("Calculate revenue for a single crop", () => {
+        const apples = {
+            name: "apples",
+            price: 2,
+        };
+        const input = {
+            crop: apples,
+            amount: 5,
+        };
+        expect(getRevenueForCrop(input)).toBe(10);
     });
 });
