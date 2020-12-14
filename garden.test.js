@@ -3,7 +3,8 @@ const {
     getYieldForCrop,
     getTotalYield,
     getCostsForCrop,
-    getRevenueForCrop
+    getRevenueForCrop,
+    getProfitGorCrop
 } = require("./garden");
 
 // Make available test pass 
@@ -94,7 +95,7 @@ describe("getRevenueForCrop", () => {
         };
         const input = {
             crop: apples,
-            amount: 5,
+            numCrops: 5,
         };
         expect(getRevenueForCrop(input)).toBe(10);
     });
@@ -105,8 +106,36 @@ describe("getRevenueForCrop", () => {
         };
         const input = {
             crop: bananas,
-            amount: 0,
+            numCrops: 0,
         };
         expect(getRevenueForCrop(input)).toBe(0);
+    });
+});
+
+// 3. Calulate profit for crop
+describe("getProfitGorCrop", () => {
+    test("Calculate profit for crop", () => {
+        const bananas = {
+            name: "bananas",
+            price: 2,
+            cost: 1,
+        };
+        const input = {
+            crop: bananas,
+            numCrops: 4,
+        };
+        expect(getProfitGorCrop(input)).toBe(4);
+    });
+    test("Calculate profit for crop with amount 0", () => {
+        const bananas = {
+            name: "bananas",
+            price: 2,
+            cost: 1,
+        };
+        const input = {
+            crop: bananas,
+            numCrops: 0,
+        };
+        expect(getProfitGorCrop(input)).toBe(0);
     });
 });
