@@ -98,4 +98,15 @@ describe("getRevenueForCrop", () => {
         };
         expect(getRevenueForCrop(input)).toBe(10);
     });
+    test("Calculate revenue for a single crop with amount 0", () => {
+        const bananas = {
+            name: "bananas",
+            price: 2,
+        };
+        const input = {
+            crop: bananas,
+            amount: 0,
+        };
+        expect(getRevenueForCrop(input)).toBe(0);
+    });
 });
