@@ -12,10 +12,16 @@ const getTotalYield = ({ crops }) => { // ({}) shorthand to create objects
 const getCostsForCrop = input => input.crop.cost * input.numCrops;
 
 // 2. Calulate revenue for crop
-const getRevenueForCrop = input => input.crop.price * input.numCrops;
+const getRevenueForCrop = input => input.crop.salePrice * input.numCrops;
 
 // 3. Calculate profit for crop
-const getProfitGorCrop = input => getRevenueForCrop(input) - getCostsForCrop(input);
+const getProfitForCrop = input => getRevenueForCrop(input) - getCostsForCrop(input);
+
+// 4. Calculate total profit for multiple crops
+const getTotalProfit = ({ crops }) => {
+    const getProfitOfEachCrop = crops.map(crop => getProfitForCrop(crop));
+    return getProfitOfEachCrop.reduce((accumulator, currentValue) => accumulator + currentValue);
+}
 
 
 module.exports = {
@@ -24,5 +30,6 @@ module.exports = {
     getTotalYield,
     getCostsForCrop,
     getRevenueForCrop,
-    getProfitGorCrop
+    getProfitForCrop,
+    getTotalProfit
 };
