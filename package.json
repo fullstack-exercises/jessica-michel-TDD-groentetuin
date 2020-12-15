@@ -4,7 +4,8 @@
     "description": "Level 30 | Last big exercise of testing with Jest",
     "main": "index.js",
     "scripts": {
-        "test": "jest"
+        "test": "jest",
+        "testWatch": "jest --watchAll"
     },
     "repository": {
         "type": "git",
