@@ -9,15 +9,16 @@ const {
 } = require("./garden");
 
 // Make available test pass 
+// 6. add given environment factors
 describe("getYieldForPlant", () => {
     test("Get yield for plant with no environment factors", () => {
         const corn = {
             name: "corn",
             yield: 30,
         };
-        expect(getYieldForPlant(corn, 0)).toBe(30);
+        expect(getYieldForPlant(corn, 0)).toBe(30); // 0 needed for 0 enviroments
     });
-    test("Get yield for plant with environment factors", () => {
+    test("Get yield for plant with environment factor sun", () => {
         const corn = {
             name: "corn",
             yield: 30,
@@ -34,6 +35,50 @@ describe("getYieldForPlant", () => {
             sun: "low",
         };
         expect(getYieldForPlant(corn, environmentFactors)).toBe(15);
+    });
+    test("Get yield for plant with environment factor sun", () => {
+        const corn = {
+            name: "corn",
+            yield: 8,
+            factors: {
+                sun: {
+                    low: 50, // -
+                    medium: 0,
+                    high: 50, // +
+                },
+            },
+        };
+
+        const environmentFactors = {
+            sun: "low",
+        };
+        expect(getYieldForPlant(corn, environmentFactors)).toBe(4);
+    });
+
+    // 7. make test with multiple environment factors
+    test("Get yield for plant with multiple environment factors sun and wind", () => {
+        const corn = {
+            name: "corn",
+            yield: 30,
+            factors: {
+                sun: {
+                    low: -50,
+                    medium: 0,
+                    high: 50,
+                },
+                wind: {
+                    low: 0,
+                    medium: -30,
+                    high: -60,
+                }
+            },
+        };
+
+        const environmentFactors = {
+            sun: "low",
+            wind: "high",
+        };
+        expect(getYieldForPlant(corn, environmentFactors)).toBe(6);
     });
 });
 
@@ -180,3 +225,5 @@ describe("getTotalProfit", () => {
         expect(getTotalProfit({ crops })).toBe(14);
     });
 });
+
+// 5. BONUS Edit already written tests above to calculate enviroments too

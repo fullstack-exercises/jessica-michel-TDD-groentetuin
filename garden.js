@@ -1,22 +1,39 @@
 // Given tests
+// 6. add given environment factors
 const getYieldForPlant = (plant, environmentFactors) => {
 
-    // Get different enviroment factors
+    // Get different environment factors
     switch (environmentFactors.sun) {
         case 'low':
-            plant.yield = plant.yield * (100 - 50) / 100;
+            plant.yield = plant.yield * (100 - plant.factors.sun.low) / 100; // Test passes if I replace plant.factors.sun.low TO 50
+            console.log(plant.factors.sun.low); // console.log -50 AND 50 ?????? HOW?
             break;
         case 'middle':
-            plant.yield = plant.yield * (100) / 100;
+            plant.yield = plant.yield * (100) / 100; // change to plant.factors....
             break;
         case 'high':
-            plant.yield = plant.yield * (100 + 50) / 100;
+            plant.yield = plant.yield * (100 + 50) / 100; // change to plant.factors....
+            break;
+        default:
+            plant.yield = plant.yield * (100) / 100; // change to plant.factors....
+    }
+
+    // 7. Make calculation with other environment factors
+    switch (environmentFactors.wind) {
+        case 'low':
+            plant.yield = plant.yield * (100) / 100;
+            break;
+        case 'middle':
+            plant.yield = plant.yield * (100 - 30) / 100;
+            break;
+        case 'high':
+            plant.yield = plant.yield * (100 - 60) / 100;
             break;
         default:
             plant.yield = plant.yield * (100) / 100;
     }
+
     return plant.yield;
-    // plant.yield * 1;
 }
 
 const getYieldForCrop = input => input.crop.yield * input.numCrops;
@@ -40,6 +57,8 @@ const getTotalProfit = ({ crops }) => {
     const getProfitOfEachCrop = crops.map(crop => getProfitForCrop(crop));
     return getProfitOfEachCrop.reduce((accumulator, currentValue) => accumulator + currentValue);
 }
+
+// 5. BONUS Edit already written functions above to calculate enviroments too
 
 
 module.exports = {
