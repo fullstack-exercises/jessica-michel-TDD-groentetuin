@@ -10,13 +10,30 @@ const {
 
 // Make available test pass 
 describe("getYieldForPlant", () => {
-    const corn = {
-        name: "corn",
-        yield: 30,
-    };
-
     test("Get yield for plant with no environment factors", () => {
-        expect(getYieldForPlant(corn)).toBe(30);
+        const corn = {
+            name: "corn",
+            yield: 30,
+        };
+        expect(getYieldForPlant(corn, 0)).toBe(30);
+    });
+    test("Get yield for plant with environment factors", () => {
+        const corn = {
+            name: "corn",
+            yield: 30,
+            factors: {
+                sun: {
+                    low: -50,
+                    medium: 0,
+                    high: 50,
+                },
+            },
+        };
+
+        const environmentFactors = {
+            sun: "low",
+        };
+        expect(getYieldForPlant(corn, environmentFactors)).toBe(15);
     });
 });
 

@@ -1,5 +1,23 @@
 // Given tests
-const getYieldForPlant = plant => plant.yield * 1;
+const getYieldForPlant = (plant, environmentFactors) => {
+
+    // Get different enviroment factors
+    switch (environmentFactors.sun) {
+        case 'low':
+            plant.yield = plant.yield * (100 - 50) / 100;
+            break;
+        case 'middle':
+            plant.yield = plant.yield * (100) / 100;
+            break;
+        case 'high':
+            plant.yield = plant.yield * (100 + 50) / 100;
+            break;
+        default:
+            plant.yield = plant.yield * (100) / 100;
+    }
+    return plant.yield;
+    // plant.yield * 1;
+}
 
 const getYieldForCrop = input => input.crop.yield * input.numCrops;
 
