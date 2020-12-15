@@ -3,37 +3,63 @@
 const getYieldForPlant = (plant, environmentFactors) => {
     if (!environmentFactors) return plant.yield;
 
+    const getAllEnvironmentFactors = Object.values(environmentFactors).toString();
+    console.log(getAllEnvironmentFactors);
     // Get different environment factors
     switch (environmentFactors.sun) {
         case 'low':
             plant.yield = plant.yield * (100 + plant.factors.sun.low) / 100;
-        case 'middle':
-            plant.yield = plant.yield * (100 + plant.factors.sun.medium) / 100; // todo: change to plant.factors....
+            break;
+        case 'medium':
+            plant.yield = plant.yield * (100 + plant.factors.sun.medium) / 100;
             break;
         case 'high':
-            plant.yield = plant.yield * (100 + plant.factors.sun.medium) / 100; // todo: change to plant.factors....
+            plant.yield = plant.yield * (100 + plant.factors.sun.medium) / 100;
             break;
         default:
-            plant.yield = plant.yield * (100 + plant.factors.sun.medium) / 100; // todo: change to plant.factors....
+            plant.yield = plant.yield * (100 + plant.factors.sun.medium) / 100;
     }
 
-    // 7. Make calculation with other environment factors
     switch (environmentFactors.wind) {
         case 'low':
-            plant.yield = plant.yield * (100) / 100; // todo: change to plant.factors....
+            plant.yield = plant.yield * (100 + plant.factors.wind.low) / 100;
             break;
-        case 'middle':
-            plant.yield = plant.yield * (100 - 30) / 100; // todo: change to plant.factors....
+        case 'medium':
+            plant.yield = plant.yield * (100 + plant.factors.wind.medium) / 100;
             break;
         case 'high':
-            plant.yield = plant.yield * (100 - 60) / 100; // todo: change to plant.factors....
+            plant.yield = plant.yield * (100 + plant.factors.wind.high) / 100;
             break;
         default:
-            plant.yield = plant.yield * (100) / 100; // todo: change to plant.factors....
+            plant.yield = plant.yield * (100 + plant.factors.wind.medium) / 100;
     }
+
     return plant.yield;
 }
 
+// temporary code, option with Object.keys factors
+
+// const getAllEnvironmentFactors = Object.values(environmentFactors).toString();
+
+// console.log(Object.values(environmentFactors)[0]);
+// console.log(Object.keys(plant.factors)[0]);
+// for (i = 0; i < 3; i++) {
+//     const getCurrentFactor = Object.keys(plant.factors)[i];
+//     switch (Object.values(environmentFactors)[i]) {
+//         case 'low':
+//             plant.yield = plant.yield * (100 + getCurrentFactor.low) / 100;
+//         case 'middle':
+//             plant.yield = plant.yield * (100 + getCurrentFactor.medium) / 100; // todo: change to plant.factors....
+//             break;
+//         case 'high':
+//             plant.yield = plant.yield * (100 + getCurrentFactor.medium) / 100; // todo: change to plant.factors....
+//             break;
+//         default:
+//             plant.yield = plant.yield * (100) / 100; // todo: change to plant.factors....
+//     }
+// }
+
+// temporary code, option with Object.keys factors
 
 const getYieldForCrop = input => input.crop.yield * input.numCrops;
 

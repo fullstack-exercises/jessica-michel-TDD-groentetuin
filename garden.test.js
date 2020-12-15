@@ -18,7 +18,7 @@ describe("getYieldForPlant", () => {
         };
         expect(getYieldForPlant(corn)).toBe(30);
     });
-    test.only("Get yield for plant with environment factor sun", () => {
+    test("Get yield for plant with environment factor sun", () => {
         const corn = {
             name: "corn",
             yield: 30,
@@ -42,9 +42,9 @@ describe("getYieldForPlant", () => {
             yield: 8,
             factors: {
                 sun: {
-                    low: 50, // -
+                    low: -50,
                     medium: 0,
-                    high: 50, // +
+                    high: 50,
                 },
             },
         };
@@ -56,7 +56,7 @@ describe("getYieldForPlant", () => {
     });
 
     // 7. make test with multiple environment factors
-    test("Get yield for plant with multiple environment factors sun and wind", () => {
+    test.only("Get yield for plant with multiple environment factors sun and wind", () => {
         const corn = {
             name: "corn",
             yield: 30,
@@ -65,7 +65,7 @@ describe("getYieldForPlant", () => {
                     low: -50,
                     medium: 0,
                     high: 50,
-                },
+                }, // 15
                 wind: {
                     low: 0,
                     medium: -30,
