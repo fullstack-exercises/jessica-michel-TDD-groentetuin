@@ -56,7 +56,7 @@ describe("getYieldForPlant", () => {
     });
 
     // 7. make test with multiple environment factors
-    test.only("Get yield for plant with multiple environment factors sun and wind", () => {
+    test("Get yield for plant with multiple environment factors sun and wind", () => {
         const corn = {
             name: "corn",
             yield: 30,
