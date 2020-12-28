@@ -14,8 +14,6 @@ const getYieldForPlant = (plant, environmentFactors) => {
     return plant.yield;
 }
 
-// const getYieldForCrop = input => input.crop.yield * input.numCrops;
-
 const getYieldForCrop = (plant, environmentFactors) => {
     if (!environmentFactors) return plant.yield * plant.numCrops;
 
@@ -30,7 +28,7 @@ const getYieldForCrop = (plant, environmentFactors) => {
 }
 
 const getTotalYield = ({ crops }) => { // ({}) shorthand to create objects
-    const getYieldOfEachCrop = crops.map(crop => getYieldForCrop(crop));
+    const getYieldOfEachCrop = crops.map(crop => crop.crop.yield * crop.numCrops);
     return getYieldOfEachCrop.reduce((accumulator, currentValue) => accumulator + currentValue);
 }
 
