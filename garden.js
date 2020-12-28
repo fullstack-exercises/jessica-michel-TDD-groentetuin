@@ -8,14 +8,26 @@ const getYieldForPlant = (plant, environmentFactors) => {
         {
             let factorReference = plant.factors[key];
             let factorValue = factorReference[value];
-            console.log('factors' + factorReference + factorValue); // output: factors[ibject Object]-50
             plant.yield = plant.yield * (100 + factorValue) / 100;
         }
     }
     return plant.yield;
 }
 
-const getYieldForCrop = input => input.crop.yield * input.numCrops;
+// const getYieldForCrop = input => input.crop.yield * input.numCrops;
+
+const getYieldForCrop = (plant, environmentFactors) => {
+    if (!environmentFactors) return plant.yield * plant.numCrops;
+
+    for (let [key, value] of Object.entries(environmentFactors)) {
+        {
+            let factorReference = plant.factors[key];
+            let factorValue = factorReference[value];
+            plant.yield = plant.yield * (100 + factorValue) / 100;
+        }
+    }
+    return plant.yield * plant.numCrops;
+}
 
 const getTotalYield = ({ crops }) => { // ({}) shorthand to create objects
     const getYieldOfEachCrop = crops.map(crop => getYieldForCrop(crop));
