@@ -1,4 +1,26 @@
-// Given tests
+// 1. Calulate cost for crop
+const getCostsForCrop = input => input.crop.cost * input.numCrops;
+
+// 2. Calulate revenue for crop
+const getRevenueForCrop = input => input.crop.salePrice * input.numCrops;
+
+// 3 & 10 Calculate profit for crop
+// const getProfitForCrop = input => getRevenueForCrop(input) - getCostsForCrop(input);
+
+const getProfitForCrop = (input, environmentFactors) => {
+    if (!environmentFactors) return getRevenueForCrop(input) - getCostsForCrop(input);
+    return getYieldForCrop(input, environmentFactors) * getRevenueForCrop(input) - getCostsForCrop(input);
+
+};
+
+// 4 & 11 Calculate total profit for multiple crops
+const getTotalProfit = ({ crops }) => {
+    const getProfitOfEachCrop = crops.map(crop => getProfitForCrop(crop));
+    return getProfitOfEachCrop.reduce((accumulator, currentValue) => accumulator + currentValue);
+}
+
+// 5. BONUS Edit already written functions above to calculate enviroments too
+
 // 6. add given environment factors
 const getYieldForPlant = (plant, environmentFactors) => {
     if (!environmentFactors) return plant.yield;
@@ -32,22 +54,7 @@ const getTotalYield = ({ crops }) => { // ({}) shorthand to create objects
     return getYieldOfEachCrop.reduce((accumulator, currentValue) => accumulator + currentValue);
 }
 
-// 1. Calulate cost for crop
-const getCostsForCrop = input => input.crop.cost * input.numCrops;
 
-// 2. Calulate revenue for crop
-const getRevenueForCrop = input => input.crop.salePrice * input.numCrops;
-
-// 3. Calculate profit for crop
-const getProfitForCrop = input => getRevenueForCrop(input) - getCostsForCrop(input);
-
-// 4. Calculate total profit for multiple crops
-const getTotalProfit = ({ crops }) => {
-    const getProfitOfEachCrop = crops.map(crop => getProfitForCrop(crop));
-    return getProfitOfEachCrop.reduce((accumulator, currentValue) => accumulator + currentValue);
-}
-
-// 5. BONUS Edit already written functions above to calculate enviroments too
 
 
 module.exports = {

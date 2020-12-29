@@ -253,7 +253,7 @@ describe("getRevenueForCrop", () => {
 
 // 3. Calulate profit for crop
 describe("getProfitForCrop", () => {
-    test("Get profit for crop", () => {
+    test("Get profit for crop, simple", () => {
         const bananas = {
             name: "bananas",
             salePrice: 2,
@@ -263,6 +263,7 @@ describe("getProfitForCrop", () => {
             crop: bananas,
             numCrops: 4,
         };
+
         expect(getProfitForCrop(input)).toBe(4);
     });
     test("Get profit for crop with amount 0", () => {
@@ -270,12 +271,46 @@ describe("getProfitForCrop", () => {
             name: "bananas",
             salePrice: 2,
             cost: 1,
+
         };
         const input = {
             crop: bananas,
             numCrops: 0,
+
         };
         expect(getProfitForCrop(input)).toBe(0);
+    });
+    // 10. Calculate profit for crop with environments
+    test("Get profit for crop with environments", () => {
+        const corn = {
+            name: "bananas",
+            salePrice: 2,
+            cost: 1,
+            factors: {
+                sun: {
+                    low: -50,
+                    medium: 0,
+                    high: 50,
+                },
+                wind: {
+                    low: 0,
+                    medium: -30,
+                    high: -60,
+                }
+            },
+        };
+
+        const environmentFactors = {
+            sun: "medium",
+            wind: "low",
+        };
+
+        const input = {
+            crop: corn,
+            numCrops: 4,
+        };
+
+        expect(getProfitForCrop(input, environmentFactors)).toBe(4);
     });
 });
 
@@ -301,5 +336,3 @@ describe("getTotalProfit", () => {
         expect(getTotalProfit({ crops })).toBe(14);
     });
 });
-
-// 5. BONUS Edit already written tests above to calculate enviroments too
