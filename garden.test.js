@@ -286,6 +286,8 @@ describe("getProfitForCrop", () => {
             name: "bananas",
             salePrice: 2,
             cost: 1,
+            yield: 3,
+            numCrops: 10,
             factors: {
                 sun: {
                     low: -50,
@@ -299,18 +301,15 @@ describe("getProfitForCrop", () => {
                 }
             },
         };
-
         const environmentFactors = {
             sun: "medium",
             wind: "low",
         };
-
         const input = {
             crop: corn,
             numCrops: 4,
         };
-
-        expect(getProfitForCrop(input, environmentFactors)).toBe(4);
+        expect(getProfitForCrop(input, environmentFactors)).toBe(236);
     });
 });
 
