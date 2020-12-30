@@ -8,7 +8,112 @@ const {
     getTotalProfit
 } = require("./garden");
 
-// Make available test pass 
+// 1. Calulate cost for crop
+describe("getCostsForCrop", () => {
+    test("Get costs for a single crop", () => {
+        const corn = {
+            name: "corn",
+            cost: 1,
+            numCrops: 10,
+        };
+        const input = {
+            crop: corn
+        };
+        expect(getCostsForCrop(input)).toBe(10);
+    });
+    test("Get costs for a 0 crops", () => {
+        const corn = {
+            name: "corn",
+            cost: 1,
+            numCrops: 0,
+        };
+        const input = {
+            crop: corn,
+        };
+        expect(getCostsForCrop(input)).toBe(0);
+    });
+});
+
+// 2. Calulate revenue for crop
+describe("getRevenueForCrop", () => {
+    test("Get revenue for a single crop", () => {
+        const apples = {
+            name: "apples",
+            salePrice: 2,
+            numCrops: 5,
+        };
+        const input = {
+            crop: apples,
+        };
+        expect(getRevenueForCrop(input)).toBe(10);
+    });
+    test("Get revenue for a single crop with amount 0", () => {
+        const bananas = {
+            name: "bananas",
+            salePrice: 2,
+            numCrops: 0,
+        };
+        const input = {
+            crop: bananas,
+        };
+        expect(getRevenueForCrop(input)).toBe(0);
+    });
+});
+
+// 3. Calulate profit for crop
+describe("getProfitForCrop", () => {
+    test("Get profit for crop, simple", () => {
+        const bananas = {
+            name: "bananas",
+            salePrice: 2,
+            cost: 1,
+            numCrops: 4,
+        };
+        const input = {
+            crop: bananas,
+        };
+
+        expect(getProfitForCrop(input)).toBe(4);
+    });
+    test("Get profit for crop with amount 0", () => {
+        const bananas = {
+            name: "bananas",
+            salePrice: 2,
+            cost: 1,
+            numCrops: 0,
+        };
+        const input = {
+            crop: bananas,
+        };
+        expect(getProfitForCrop(input)).toBe(0);
+    });
+});
+
+// 4. Calulate total profit for multiple crops
+describe("getTotalProfit", () => {
+    test("Get profit for multiple crops", () => {
+        const bananas = {
+            name: "bananas",
+            yield: 3,
+            cost: 2,
+            salePrice: 4,
+            numCrops: 5
+        };
+        const pumpkin = {
+            name: "pumpkin",
+            yield: 4,
+            salePrice: 4,
+            cost: 2,
+            numCrops: 2
+        };
+        const crops = [
+            { crop: bananas }, // 10
+            { crop: pumpkin }, // 4
+        ];
+        expect(getTotalProfit({ crops })).toBe(14);
+    });
+});
+
 // 6. add given environment factors
 describe("getYieldForPlant", () => {
     test("Get yield for plant with no environment factors", () => {
@@ -54,8 +159,10 @@ describe("getYieldForPlant", () => {
         };
         expect(getYieldForPlant(corn, environmentFactors)).toBe(4);
     });
+});
 
-    // 7. make test with multiple environment factors
+// 7. make test with multiple environment factors
+describe("getYieldForPlant with multiple environments", () => {
     test("Get yield for plant with multiple environment factors sun and wind", () => {
         const corn = {
             name: "corn",
@@ -82,6 +189,9 @@ describe("getYieldForPlant", () => {
     });
 });
 
+// 8 -----
+
+// 9. Get yield for crop with environment factors
 describe("getYieldForCrop", () => {
     test("Get yield for crop, simple", () => {
         const corn = {
@@ -91,7 +201,6 @@ describe("getYieldForCrop", () => {
         };
         expect(getYieldForCrop(corn)).toBe(30);
     });
-    // 9. Get yield for crop with environment factors
     test("Get yield for crop, with environment factors that contains 0", () => {
         const corn = {
             name: "corn",
@@ -199,88 +308,8 @@ describe("getTotalYield", () => {
     });
 });
 
-// 1. Calulate cost for crop
-describe("getCostsForCrop", () => {
-    test("Get costs for a single crop", () => {
-        const corn = {
-            name: "corn",
-            cost: 1,
-        };
-        const input = {
-            crop: corn,
-            numCrops: 10,
-        };
-        expect(getCostsForCrop(input)).toBe(10);
-    });
-    test("Get costs for a 0 crops", () => {
-        const corn = {
-            name: "corn",
-            cost: 1,
-        };
-        const input = {
-            crop: corn,
-            numCrops: 0,
-        };
-        expect(getCostsForCrop(input)).toBe(0);
-    });
-});
-
-// 2. Calulate revenue for crop
-describe("getRevenueForCrop", () => {
-    test("Get revenue for a single crop", () => {
-        const apples = {
-            name: "apples",
-            salePrice: 2,
-        };
-        const input = {
-            crop: apples,
-            numCrops: 5,
-        };
-        expect(getRevenueForCrop(input)).toBe(10);
-    });
-    test("Get revenue for a single crop with amount 0", () => {
-        const bananas = {
-            name: "bananas",
-            salePrice: 2,
-        };
-        const input = {
-            crop: bananas,
-            numCrops: 0,
-        };
-        expect(getRevenueForCrop(input)).toBe(0);
-    });
-});
-
-// 3. Calulate profit for crop
-describe("getProfitForCrop", () => {
-    test("Get profit for crop, simple", () => {
-        const bananas = {
-            name: "bananas",
-            salePrice: 2,
-            cost: 1,
-        };
-        const input = {
-            crop: bananas,
-            numCrops: 4,
-        };
-
-        expect(getProfitForCrop(input)).toBe(4);
-    });
-    test("Get profit for crop with amount 0", () => {
-        const bananas = {
-            name: "bananas",
-            salePrice: 2,
-            cost: 1,
-
-        };
-        const input = {
-            crop: bananas,
-            numCrops: 0,
-
-        };
-        expect(getProfitForCrop(input)).toBe(0);
-    });
-    // 10. Calculate profit for crop with environments
+// 10. Calculate profit for crop with environments
+describe("getProfitForCrop with environments", () => {
     test("Get profit for crop with environments", () => {
         const corn = {
             name: "bananas",
@@ -302,36 +331,13 @@ describe("getProfitForCrop", () => {
             },
         };
         const environmentFactors = {
-            sun: "medium",
-            wind: "low",
+            sun: "low",
+            wind: "high",
         };
         const input = {
             crop: corn,
-            numCrops: 4,
+            numCrops: 10,
         };
-        expect(getProfitForCrop(input, environmentFactors)).toBe(236);
-    });
-});
-
-// 4. Calulate total profit for multiple crops
-describe("getTotalProfit", () => {
-    test("Get profit for multiple crops", () => {
-        const bananas = {
-            name: "bananas",
-            yield: 3,
-            cost: 2,
-            salePrice: 4,
-        };
-        const pumpkin = {
-            name: "pumpkin",
-            yield: 4,
-            salePrice: 4,
-            cost: 2,
-        };
-        const crops = [
-            { crop: bananas, numCrops: 5 }, // 10
-            { crop: pumpkin, numCrops: 2 }, // 4
-        ];
-        expect(getTotalProfit({ crops })).toBe(14);
+        expect(getProfitForCrop(input, environmentFactors)).toBe(110);
     });
 });

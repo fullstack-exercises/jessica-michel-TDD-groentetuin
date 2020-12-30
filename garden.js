@@ -1,15 +1,15 @@
 // 1. Calulate cost for crop
-const getCostsForCrop = input => input.crop.cost * input.numCrops;
+const getCostsForCrop = input => input.crop.cost * input.crop.numCrops;
 
 // 2. Calulate revenue for crop
-const getRevenueForCrop = input => input.crop.salePrice * input.numCrops;
+const getRevenueForCrop = input => input.crop.salePrice * input.crop.numCrops;
 
 // 3 & 10 Calculate profit for crop
 // const getProfitForCrop = input => getRevenueForCrop(input) - getCostsForCrop(input);
 
 const getProfitForCrop = (input, environmentFactors) => {
     if (!environmentFactors) return getRevenueForCrop(input) - getCostsForCrop(input);
-    const crop = input.crop
+    const crop = input.crop;
     return getYieldForCrop(crop, environmentFactors) * getRevenueForCrop(input) - getCostsForCrop(input);
 };
 
@@ -22,31 +22,30 @@ const getTotalProfit = ({ crops }) => {
 // 5. BONUS Edit already written functions above to calculate enviroments too
 
 // 6. add given environment factors
-const getYieldForPlant = (plant, environmentFactors) => {
-    if (!environmentFactors) return plant.yield;
-
+const getYieldForPlant = (input, environmentFactors) => {
+    if (!environmentFactors) return input.yield;
     // Get different environment factors
     for (let [key, value] of Object.entries(environmentFactors)) {
         {
-            let factorReference = plant.factors[key];
+            let factorReference = input.factors[key];
             let factorValue = factorReference[value];
-            plant.yield = plant.yield * (100 + factorValue) / 100;
+            input.yield = input.yield * (100 + factorValue) / 100;
         }
     }
-    return plant.yield;
+    return input.yield;
 }
 
-const getYieldForCrop = (plant, environmentFactors) => {
-    if (!environmentFactors) return plant.yield * plant.numCrops;
+const getYieldForCrop = (input, environmentFactors) => {
+    if (!environmentFactors) return input.yield * input.numCrops;
 
     for (let [key, value] of Object.entries(environmentFactors)) {
         {
-            let factorReference = plant.factors[key];
+            let factorReference = input.factors[key];
             let factorValue = factorReference[value];
-            plant.yield = plant.yield * (100 + factorValue) / 100;
+            input.yield = input.yield * (100 + factorValue) / 100;
         }
     }
-    return plant.yield * plant.numCrops;
+    return input.yield * input.numCrops;
 }
 
 const getTotalYield = ({ crops }) => { // ({}) shorthand to create objects
