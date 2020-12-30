@@ -14,8 +14,9 @@ const getProfitForCrop = (input, environmentFactors) => {
 };
 
 // 4 & 11 Calculate total profit for multiple crops
-const getTotalProfit = ({ crops }) => {
-    const getProfitOfEachCrop = crops.map(crop => getProfitForCrop(crop));
+const getTotalProfit = ({ crops }, environmentFactors) => {
+
+    const getProfitOfEachCrop = crops.map(crop => getProfitForCrop(crop, environmentFactors));
     return getProfitOfEachCrop.reduce((accumulator, currentValue) => accumulator + currentValue);
 }
 
@@ -29,7 +30,11 @@ const getYieldForPlant = (input, environmentFactors) => {
         {
             let factorReference = input.factors[key];
             let factorValue = factorReference[value];
-            input.yield = input.yield * (100 + factorValue) / 100;
+            if (factorValue === 0) {
+                input.yield = input.yield
+            } else {
+                input.yield = input.yield * (100 + factorValue) / 100;
+            }
         }
     }
     return input.yield;
@@ -42,7 +47,11 @@ const getYieldForCrop = (input, environmentFactors) => {
         {
             let factorReference = input.factors[key];
             let factorValue = factorReference[value];
-            input.yield = input.yield * (100 + factorValue) / 100;
+            if (factorValue === 0) {
+                input.yield = input.yield
+            } else {
+                input.yield = input.yield * (100 + factorValue) / 100;
+            }
         }
     }
     return input.yield * input.numCrops;

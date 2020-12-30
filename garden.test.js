@@ -189,7 +189,7 @@ describe("getYieldForPlant with multiple environments", () => {
     });
 });
 
-// 8 -----
+// 8 GENERAL: Ignore non relevant environments in calculation
 
 // 9. Get yield for crop with environment factors
 describe("getYieldForCrop", () => {
@@ -339,5 +339,58 @@ describe("getProfitForCrop with environments", () => {
             numCrops: 10,
         };
         expect(getProfitForCrop(input, environmentFactors)).toBe(110);
+    });
+});
+
+// 11. Calculate profit for crop with environments
+describe("getTotalProfit with environments", () => {
+    test("Get profit for multiple crops", () => {
+        const bananas = {
+            name: "bananas",
+            yield: 3,
+            cost: 2,
+            salePrice: 4,
+            numCrops: 5,
+            factors: {
+                sun: {
+                    low: -60,
+                    medium: 0,
+                    high: 60,
+                },
+                wind: {
+                    low: 0,
+                    medium: -40,
+                    high: -50,
+                }
+            },
+        };
+        const pumpkin = {
+            name: "pumpkin",
+            yield: 4,
+            salePrice: 4,
+            cost: 2,
+            numCrops: 2,
+            factors: {
+                sun: {
+                    low: -40,
+                    medium: 0,
+                    high: 50,
+                },
+                wind: {
+                    low: 0,
+                    medium: -40,
+                    high: -50,
+                }
+            },
+        };
+        const environmentFactors = {
+            sun: "medium",
+            wind: "low",
+        };
+        const crops = [
+            { crop: bananas }, // 10
+            { crop: pumpkin }, // 4
+        ];
+        expect(getTotalProfit({ crops }, environmentFactors)).toBe(14); // 14 ?? of 350 ??
     });
 });
