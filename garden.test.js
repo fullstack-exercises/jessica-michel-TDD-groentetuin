@@ -384,13 +384,13 @@ describe("getTotalProfit with environments", () => {
             },
         };
         const environmentFactors = {
-            sun: "medium",
+            sun: "high",
             wind: "low",
         };
         const crops = [
-            { crop: bananas }, // 10
-            { crop: pumpkin }, // 4
+            { crop: bananas },
+            { crop: pumpkin },
         ];
-        expect(getTotalProfit({ crops }, environmentFactors)).toBe(14); // 14 ?? of 350 ??
+        expect(getTotalProfit({ crops }, environmentFactors)).toBe(562);
     });
 });
